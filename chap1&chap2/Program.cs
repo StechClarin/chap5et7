@@ -1,32 +1,42 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 class JeuNombre
 {
     static void Main(string[] args)
     {
-        try
-        {
-            Console.WriteLine("Choisissez un nombre entre 1 et 10 : ");
-            int nombre = int.Parse(Console.ReadLine());
+        List<int> choixFaits = new List<int>();
+        bool jeuEnCours = true;
 
-            if (nombre < 1 || nombre > 10)
-            {
-                throw new ArgumentException("Saisissez un nombre compris entre [1, 10].");
-            }
-
-            if (nombre == 5)
-            {
-                Console.WriteLine("Vous avez gagné !");
-            }
-            else
-            {
-                Console.WriteLine("Vous avez perdu.");
-            }
-        }
-        catch (Exception ex)
+        while (jeuEnCours)
         {
-            Console.WriteLine($"Erreur : {ex.Message}");
+            try
+            {
+                Console.WriteLine("Choisissez un nombre entre 1 et 10 : ");
+                int nombre = int.Parse(Console.ReadLine());
+
+                if (nombre < 1 || nombre > 10)
+                {
+                    throw new ArgumentException("Saisissez un nombre compris entre [1, 10].");
+                }
+
+                choixFaits.Add(nombre);
+
+                if (nombre == 5)
+                {
+                    Console.WriteLine("Vous avez gagné !");
+                    jeuEnCours = false;
+                }
+                else
+                {
+                    Console.WriteLine("Vous avez perdu.");
+                    Console.WriteLine($"Choix précédents : {string.Join(", ", choixFaits)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur : {ex.Message}");
+            }
         }
     }
 }
